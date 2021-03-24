@@ -2,9 +2,27 @@ body, button {
     font-family: "Truetypewriter PolyglOTT";
     font-size: 18px;
 }
+.header-nav > button{
+    width: 250px;
+    background-color: #696969;
+    border-radius: 25px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 22px;
+    transition:0.7s;
+}
 
+.header-nav > button:focus{
+    outline: none;
+}
 
-/*test*/
+.header-nav > button:hover{
+    margin-left: -50px;
+    transition:0.7s;
+    transform: scale(1.1);
+    box-shadow: 0px 5px 10px 5px black;
+    color: white;
+}
 
 .main-place{
     width: 100%;
@@ -15,8 +33,14 @@ body, button {
 
 .header-nav{
     display: flex;
-    width: 100%;
-    justify-content: space-around;
+    width: 300px;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+    height: 150px;
+    position: fixed;
+    right: 0px;
 }
 
 .pop-up-window{
@@ -33,6 +57,7 @@ body, button {
     border: 1px solid black;
     padding: 15px;
     box-sizing: border-box;
+    transition: 1s;
 }
 
 .input-coloumn{
@@ -45,8 +70,12 @@ body, button {
 
 
 .dis-non{
-    display: none;
+    top: -1000px;
+    transition: 1s;
 }
+
+
+
 .test{
     display: block;
 }
