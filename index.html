@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>WebStalker</title>
+    <link rel="stylesheet" type="text/css" href="./CSS/style.css">
+    <script defer src="./scripts/script.js"></script>
+
+</head>
+<body>
+<header>
+    <nav class="header-nav">
+        <button onclick="openPopUp()" parrent="pop_up_reg">Зарегистрироваться</button>
+        <button onclick="openPopUp()" parrent="pop_up_in">Вход</button>
+        <button onclick="openPopUp()" parrent="pop_up_help">ПАМАГИТИ</button>
+    </nav>
+</header>
+<div class="main-place" id="main_place">
+
+</div>
+<div class="pop-up-window dis-non" id="pop_up_reg">
+
+    <label for="nickname-input-reg" class="input-coloumn">
+
+            <span>
+               Введите позывной
+            </span>
+        <input type="text" id="nickname-input-reg">
+    </label>
+
+    <label for="email-input-reg" class="input-coloumn">
+
+            <span>
+                Введите email
+            </span>
+        <input type="text" id="email-input-reg">
+    </label>
+    <label for="password-input-reg" class="input-coloumn">
+
+            <span>
+               Введите пароль
+            </span>
+        <input type="password" id="password-input-reg">
+    </label>
+    <Button onclick="accountAction()" value="reg">Зарегистрироваться</Button>
+    <!-- ______________________________________________________________________  -->
+</div>
+<div class="pop-up-window dis-non" id="pop_up_in">
+    <label for="nickname-input-in" class="input-coloumn">
+
+            <span>
+               Введите позывной
+            </span>
+        <input type="text" id="nickname-input-in">
+    </label>
+
+    <label style="display: none;" for="email-input-in" class="input-coloumn">
+
+            <span>
+                Введите email
+            </span>
+        <input type="text" id="email-input-in">
+    </label>
+    <label for="password-input-in" class="input-coloumn">
+
+            <span>
+               Введите пароль
+            </span>
+        <input type="text" id="password-input-in">
+    </label>
+
+    <label for="stayLogged">
+        <input type="checkbox" id="stayLogged">
+        <span>
+                Запомнить меня
+            </span>
+    </label>
+
+    <Button onclick="accountAction()" value="in">Войти</Button>
+</div>
+
+</body>
+</html>
