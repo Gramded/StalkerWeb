@@ -39,7 +39,7 @@ function accountAction () {
 }
 
 
-// ИСПРАВИТЬ ЛОГИКУ ПОП АПА
+
 function openPopUp () {
     let parrentButton = event.target.getAttribute("parrent");
     let childBlock = document.getElementById(parrentButton);
