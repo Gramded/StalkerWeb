@@ -7,8 +7,7 @@ function accountAction () {
     let nickname = nicknameInput
     let newUser = {
         email: emailInput,
-        password: passwordInput,
-        save: false
+        password: passwordInput
     }
     if(actionButton == "reg"){
         window.localStorage.setItem(nickname, JSON.stringify(newUser))
@@ -20,9 +19,11 @@ function accountAction () {
             alert("Вы вошли")
             let stayLogged = document.getElementById(`stayLogged`).checked;
             if(stayLogged == true){
-                newUser.save = true;
-                window.localStorage.setItem(nickname, JSON.stringify(newUser))
-                console.log(window.localStorage.getItem(nickname))
+                let lastSave = {
+                    name: nicknameInput,
+                    saveIs: stayLogged
+                }
+                window.localStorage.setItem('saveLog', JSON.stringify(lastSave));
 
             }
         }   else{
@@ -33,7 +34,7 @@ function accountAction () {
         console.log(user)
     }
 
-
+    document.getElementById(`pop_up_${actionButton}`).classList.toggle('dis-non')
     console.log(JSON.stringify(newUser))
 }
 
@@ -45,10 +46,11 @@ function openPopUp () {
     childBlock.classList.toggle("dis-non")
     console.log(parrentButton)
     console.log(childBlock)
-    let Sapphire = JSON.parse(window.localStorage.getItem("Сапфир"))
-    if((parrentButton == "pop-up-in") && (Sapphire.save == true) ){
-        document.getElementById("nickname-input-in").value = "Сапфир";
-        document.getElementById("password-input-in").value = Sapphire.password;
+    let save = JSON.parse(window.localStorage.getItem("saveLog"))
+    if((parrentButton == "pop-up-in") && (save.saveIs == true) ){
+        document.getElementById("nickname-input-in").value = save.name;
+        let pass = JSON.parse(window.localStorage.getItem(save.name))
+        document.getElementById("password-input-in").value = pass.password;
         document.getElementById("stayLogged").checked=true;
     }
 }
