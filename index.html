@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>WebStalker</title>
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script defer src="./script/homePage.js"></script>
 
@@ -10,15 +11,22 @@
 <body>
 
 <div class="main-place" id="main_place">
-    <header>
+    <header style="display: flex; justify-content: space-between; padding-top: 10px;">
+        <div id='user' class="user">
+            <img class="user-icon" src="./images/stalker2.png" alt="">
+            <div class="user-info" id="user-info">
+            </div>
+        </div>
         <nav class="header-nav">
             <button onclick="openPopUp()" parrent="pop_up_reg">Зарегистрироваться</button>
             <button onclick="openPopUp()" parrent="pop_up_in">Вход</button>
-            <button onclick="openPopUp()" parrent="pop_up_help">Забыл пароль</button>
+            <button onclick="createMap()" parrent="pop_up_help">Забыл пароль</button>
         </nav>
     </header>
 </div>
-<div class="pop-up-window dis-non" id="pop_up_reg">
+<div class="map" id="map"></div>
+<!--___________________________________________________________________________________________________________-->
+<div class="pop-up-window" id="pop_up_reg">
 
     <label for="nickname-input-reg" class="input-coloumn">
 
@@ -45,7 +53,7 @@
     <Button onclick="accountAction()" value="reg">Зарегистрироваться</Button>
     <!-- ______________________________________________________________________  -->
 </div>
-<div class="pop-up-window dis-non" id="pop_up_in">
+<div class="pop-up-window" id="pop_up_in">
     <label for="nickname-input-in" class="input-coloumn">
 
             <span>
@@ -78,6 +86,7 @@
 
     <Button onclick="accountAction()" value="in">Войти</Button>
 </div>
-
+<!--__________________________________________________________________________________________________-->
+<div id="root"></div>
 </body>
 </html>

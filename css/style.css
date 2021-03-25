@@ -43,9 +43,33 @@ body, button {
     right: 0px;
 }
 
+.map {
+    display: block;
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    left: 50px;
+    top: 30%;
+    border: 1px solid red;
+}
+
+.block {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    transition: 2s;
+}
+
+.im-here {
+    background-image: url("../images/stalker2.png");
+    background-size: 100% 100%;
+    transition: 2s;
+
+}
+
 .pop-up-window{
     position: absolute;
-    top: 50%;
+    top: -1000px;
     left:50%;
     transform: translateX(-50%) translateY(-50%);
     display: flex;
@@ -60,18 +84,55 @@ body, button {
     transition: 1s;
 }
 
-.input-coloumn{
+.input-coloumn {
     display: flex;
     flex-direction: column;
     align-items: center;
 
 }
 
+.battle-place {
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    height: 300px;
+    border: 2px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+}
 
 
-.dis-non{
-    top: -1000px;
+
+.active-pop-up{
+    top: 50%;
     transition: 1s;
+}
+
+.user {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    background-color: dimgrey;
+}
+
+.user-icon {
+    width: 120px;
+    height: 100px;
+}
+
+.user-info {
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /*asd*/
