@@ -10,6 +10,7 @@ body, button {
     box-sizing: border-box;
     font-size: 22px;
     transition:0.7s;
+    cursor: pointer;
 }
 
 .header-nav > button:focus{
