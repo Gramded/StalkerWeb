@@ -68,3 +68,17 @@
     height: 250px;
 
 }
+
+.char-menu-info_equips_gears{
+    height: auto;
+}
+.head-gears{
+    height: 33%;
+}
+.chest-gears{
+    height: 33%;
+}
+
+.boots-gears{
+    height: 33%;
+}
