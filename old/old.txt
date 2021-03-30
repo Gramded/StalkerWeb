@@ -1,0 +1,13 @@
+let damage = 20;
+    let mutantHp = document.getElementById('mutant-hp').innerText;
+    if (mutantHp > damage) {
+        document.getElementById('mutant-hp').innerText = parseInt(mutantHp)-damage;
+        alert(`Вы нанесли ${damage} урона. У зверюги осталось ${parseInt(mutantHp)-damage} хп из ${mutantHp}`)
+    } else {
+        alert(`Нихуя ты победитель! Держи, это твоё - ${arrMass[cord.y][cord.x].mutants.loot} руб`)
+        document.getElementById('user-money').innerText = parseInt(document.getElementById('user-money').innerText) + arrMass[cord.y][cord.x].mutants.loot;
+        setStat('money', document.getElementById('user-money').innerText);
+        document.getElementById('root').innerHTML = '';
+    }
+
+____________Кусок кода из механики битвы с псом________________________________

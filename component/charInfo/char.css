@@ -70,8 +70,9 @@
 }
 
 .char-menu-info_equips_gears{
-    height: auto;
+    height: 100%;
 }
+
 .head-gears{
     height: 33%;
 }

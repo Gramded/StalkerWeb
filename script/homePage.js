@@ -1,4 +1,7 @@
-function accountAction () {
+import Fight from './fight.js';
+
+
+window.accountAction = function accountAction () {
     let actionButton = event.target.getAttribute("value"),
         nicknameInput = document.getElementById(`nickname-input-${actionButton}`).value,
         emailInput = document.getElementById(`email-input-${actionButton}`).value,
@@ -8,6 +11,14 @@ function accountAction () {
     let newUser = {
         email: emailInput,
         password: passwordInput,
+        hp: 100,
+        gun: {
+            name: 'ПМ',
+            damage: 20,
+            mag: 8,
+            fullMag: 8,
+            rateOfFire: [1]
+        },
         money: 0
     }
     if(actionButton == "reg"){
@@ -20,7 +31,7 @@ function accountAction () {
             alert("Вы вошли")
             let stayLogged = document.getElementById(`stayLogged`).checked;
             let userInfo = `<p id="user-name">${nicknameInput}</p>
-                            <p id="user-hp">100</p>
+                            <p id="user-hp">${JSON.parse(window.localStorage.getItem(nicknameInput)).hp}</p>
                             <p><span id="user-money">${JSON.parse(window.localStorage.getItem(nicknameInput)).money}</span> руб</p>
                             <p id="user-status"><span class="user-status">Бодр</span></p>`
             document.getElementById('user-info').innerHTML = userInfo;
@@ -32,6 +43,7 @@ function accountAction () {
                 window.localStorage.setItem('saveLog', JSON.stringify(lastSave));
 
             }
+            hpRes();
         }   else{
             alert("Неверный пароль")
         }
@@ -46,7 +58,7 @@ function accountAction () {
 
 
 
-function openPopUp () {
+window.openPopUp = function openPopUp () {
     let parrentButton = event.target.getAttribute("parrent");
     let childBlock = document.getElementById(parrentButton);
     console.log(document.getElementsByClassName('active-pop-up')[0])
@@ -59,7 +71,7 @@ function openPopUp () {
     console.log(parrentButton)
     console.log(childBlock)
     let save = JSON.parse(window.localStorage.getItem("saveLog"))
-    if((parrentButton == "pop-up-in") && (save.saveIs == true) ){
+    if((parrentButton == "pop_up_in") && (save.saveIs == true) ){
         document.getElementById("nickname-input-in").value = save.name;
         let pass = JSON.parse(window.localStorage.getItem(save.name))
         document.getElementById("password-input-in").value = pass.password;
@@ -75,7 +87,15 @@ let cord = {
 let house = {
     name: 'Дом',
     color: "black",
-    mutants: null,
+    mutants: {
+        name: 'Кровосос',
+        hp: 250,
+        damage: 10,
+        attackRange: 1,
+        moveSpeed: 9,
+        loot: 1000,
+        img: 'krovosos.png'
+    },
     habar: 100
 }
 
@@ -92,6 +112,9 @@ let forest = {
     mutants: {
         name: 'Слепой пёс',
         hp: 50,
+        damage: 5,
+        attackRange: 0,
+        moveSpeed: 5,
         loot: 200,
         img: 'pes.png'
     },
@@ -105,7 +128,7 @@ let emptyForest = {
     habar: 0
 }
 
-let arrMass = [
+window.arrMass = [
     [emptyForest, forest, emptyForest, emptyForest, emptyForest, forest],
     [road, road, road, house, road, road],
     [emptyForest, emptyForest, road, road, road, forest],
@@ -124,22 +147,28 @@ function createMap() {
 }
 
 
+// __________________Cords_____________________
+let cordY = undefined;
+let cordX = undefined;
+// __________________________________________
+let save = JSON.parse(window.localStorage.getItem("saveLog"));
+// ___________________Save like user___________
 
-function getName () {
-    let cordY = parseInt(event.target.getAttribute('y'));
-    let cordX = parseInt(event.target.getAttribute('x'));
+window.getName = function getName () {
+    cordY = parseInt(event.target.getAttribute('y'));
+    cordX = parseInt(event.target.getAttribute('x'));
     cord.x = cordX;
     cord.y = cordY;
     if (arrMass[cordY][cordX].mutants !== null) {
         console.log(`Вы встретили ${arrMass[cordY][cordX].mutants.name} с ${arrMass[cordY][cordX].mutants.hp} очков здоровья, а дед пидарас`)
         console.table(arrMass[cordY][cordX].mutants);
-        let save = JSON.parse(window.localStorage.getItem("saveLog"));
+        // let save = JSON.parse(window.localStorage.getItem("saveLog"));
         if (confirm('Пиздиться то будем?')) {
             let battle_place = `<div class="battle-place">
                                 <div>
                                     <img style="width: 100px" src="./images/stalker2.png" alt="Mutant">
                                     <p>${save.name}</p>
-                                    <p class="hp-bar" id="user-hp"><span>100</span></p>
+                                    <p class="hp-bar" id="user-hp"><span>${JSON.parse(window.localStorage.getItem(save.name)).hp}</span></p>
                                 </div>
                                 <div>
                                     <button id="shot-btn" onclick="battleShot()">Выстрелить</button>
@@ -169,17 +198,45 @@ function getName () {
     event.target.classList.add('im-here')
 }
 
-function battleShot () {
-    let damage = 20;
-    let mutantHp = document.getElementById('mutant-hp').innerText;
-    if (mutantHp > damage) {
-        document.getElementById('mutant-hp').innerText = parseInt(mutantHp)-damage;
-        alert(`Вы нанесли ${damage} урона. У зверюги осталось ${parseInt(mutantHp)-damage} хп из ${mutantHp}`)
-    } else {
+let range = null;
+
+window.battleShot = function battleShot () {
+    cord.x = cordX;
+    cord.y = cordY;
+
+    // let save = JSON.parse(window.localStorage.getItem("saveLog"));
+    let user = window.localStorage.getItem(save.name);
+    user = JSON.parse(user)
+    let enemy = arrMass[cordY][cordX].mutants;
+    // let enemy = JSON.stringify(arrMass[cordY][cordX].mutants);
+    // enemy = JSON.parse(enemy);
+    let battle = null;
+    if (range !== null) {
+        battle = new Fight(user, enemy, range);
+    } else if (range == null) {
+        range = (Math.random()*100).toFixed(0);
+        battle = new Fight(user, enemy, range);
+    }
+    console.log(range);
+    // console.log(battle.userShotRes())
+    // console.table(forest)
+    let battleResult = battle.userShotRes();
+    document.getElementById('mutant-hp').innerText = typeof battleResult == "object" ? battleResult[0] : document.getElementById('mutant-hp').innerText;
+    console.log(battleResult)
+    user.gun.mag = battle.user.gun.mag;
+    window.localStorage.setItem(save.name, JSON.stringify(user));
+    try {
+        range = battleResult[3];
+    } catch (e) {
+
+    }
+    if (battle.enemy.hp <= 0) {
         alert(`Нихуя ты победитель! Держи, это твоё - ${arrMass[cord.y][cord.x].mutants.loot} руб`)
         document.getElementById('user-money').innerText = parseInt(document.getElementById('user-money').innerText) + arrMass[cord.y][cord.x].mutants.loot;
         setStat('money', document.getElementById('user-money').innerText);
         document.getElementById('root').innerHTML = '';
+        range = null;
+        hpRes();
     }
 
 }
@@ -191,6 +248,23 @@ function setStat(name, value) {
     user[name] = value;
     window.localStorage.setItem(userLocal.name, JSON.stringify(user));
 }
+
+function hpRes () {
+    let user = JSON.parse(window.localStorage.getItem(save.name));
+    user.hp += 10;
+    if (user.hp <= 100) {
+        window.localStorage.setItem(save.name, JSON.stringify(user));
+        setTimeout(hpRes, 3000)
+        console.log(`Друже, тебе чуть лучше. Если оценивать в процентах, то чувствуешь ты себя на ${user.hp} из 100`)
+    }  else if (user.hp >= 100) {
+        user.hp = 100;
+    }
+    document.getElementById('user-hp').innerText = user.hp;
+}
+
+
+
+
 
 
 createMap()
