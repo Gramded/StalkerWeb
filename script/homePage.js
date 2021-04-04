@@ -163,7 +163,7 @@ window.getName = function getName () {
         console.log(`Вы встретили ${arrMass[cordY][cordX].mutants.name} с ${arrMass[cordY][cordX].mutants.hp} очков здоровья, а дед пидарас`)
         console.table(arrMass[cordY][cordX].mutants);
         // let save = JSON.parse(window.localStorage.getItem("saveLog"));
-        if (confirm('Пиздиться то будем?')) {
+        if (confirm('Сражаться-то будем?')) {
             let battle_place = `<div class="battle-place">
                                 <div>
                                     <img style="width: 100px" src="./images/stalker2.png" alt="Mutant">
@@ -181,7 +181,7 @@ window.getName = function getName () {
                                 </div>
                             </div>`;
             document.getElementById('root').innerHTML = battle_place;
-            alert('штош тебе пизда')
+            alert('штош тебе удачной охоты, сталкер')
         } else {
             alert('Ну ты и сцыкло')
         }
@@ -231,7 +231,7 @@ window.battleShot = function battleShot () {
 
     }
     if (battle.enemy.hp <= 0) {
-        alert(`Нихуя ты победитель! Держи, это твоё - ${arrMass[cord.y][cord.x].mutants.loot} руб`)
+        alert(`Неплохо-неплохо. Ты - победитель! Держи, это твоё - ${arrMass[cord.y][cord.x].mutants.loot} руб`)
         document.getElementById('user-money').innerText = parseInt(document.getElementById('user-money').innerText) + arrMass[cord.y][cord.x].mutants.loot;
         setStat('money', document.getElementById('user-money').innerText);
         document.getElementById('root').innerHTML = '';
